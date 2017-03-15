@@ -22,6 +22,9 @@ services:
       - identityUrl=http://identity.api:5105              #Local: You need to open your host's firewall at range 5100-5105.  at range 5100-5105. 
     ports:
       - "5103:5103"
+    depends_on:
+      - basket.data
+      - identity.api
 
   catalog.api:
     image: tevert/eshop.catalog.api
@@ -32,6 +35,8 @@ services:
       - ExternalCatalogBaseUrl=http://${ESHOP_PROD_EXTERNAL_DNS_NAME_OR_IP}:5101    #Local: You need to open your host's firewall at range 5100-5105.  at range 5100-5105.
     ports:
       - "5101:5101"
+    depends_on:
+      - sql.data
 
   identity.api:
     image: tevert/eshop.identity.api
@@ -43,6 +48,8 @@ services:
       - MvcClient=http://${ESHOP_PROD_EXTERNAL_DNS_NAME_OR_IP}:5100              #Local: You need to open your host's firewall at range 5100-5105.  
     ports:
       - "5105:5105"
+    depends_on:
+      - sql.data
 
   ordering.api:
     image: tevert/eshop.ordering.api
@@ -53,6 +60,8 @@ services:
       - identityUrl=http://identity.api:5105              #Local: You need to open your host's firewall at range 5100-5105.  at range 5100-5105. 
     ports:
       - "5102:5102"
+    depends_on:
+      - sql.data
 
   webspa:
     image: tevert/eshop.webspa
@@ -65,6 +74,9 @@ services:
       - BasketUrl=http://${ESHOP_PROD_EXTERNAL_DNS_NAME_OR_IP}:5103                
     ports:
       - "5104:5104"
+    depends_on:
+      - identity.api
+      - basket.api
 
   webmvc:
     image: tevert/eshop.webmvc
@@ -77,6 +89,11 @@ services:
       - BasketUrl=http://basket.api:5103
     ports:
       - "5100:5100"
+    depends_on:
+      - catalog.api
+      - ordering.api
+      - identity.api
+      - basket.api
 
   sql.data:
     environment:
