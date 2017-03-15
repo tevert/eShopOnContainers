@@ -14,6 +14,7 @@ version: '2'
 services:
 
   basket.api:
+    image: tevert/eshop.basket.api
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=http://0.0.0.0:5103
@@ -23,6 +24,7 @@ services:
       - "5103:5103"
 
   catalog.api:
+    image: tevert/eshop.catalog.api
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=http://0.0.0.0:5101
@@ -32,6 +34,7 @@ services:
       - "5101:5101"
 
   identity.api:
+    image: tevert/eshop.identity.api
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=http://0.0.0.0:5105
@@ -42,6 +45,7 @@ services:
       - "5105:5105"
 
   ordering.api:
+    image: tevert/eshop.ordering.api
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=http://0.0.0.0:5102
@@ -51,6 +55,7 @@ services:
       - "5102:5102"
 
   webspa:
+    image: tevert/eshop.webspa
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=http://0.0.0.0:5104
@@ -62,6 +67,7 @@ services:
       - "5104:5104"
 
   webmvc:
+    image: tevert/eshop.webmvc
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=http://0.0.0.0:5100
